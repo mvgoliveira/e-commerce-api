@@ -1,0 +1,24 @@
+{
+	"name": "e-commerce-api",
+	"version": "1.0.0",
+	"main": "index.js",
+	"repository": "https://github.com/mvgoliveira/e-commerce-api.git",
+	"author": "Marcus Oliveira <MARKUSVI17@GMAIL.COM>",
+	"license": "MIT",
+	"scripts": {
+		"dev": "ts-node-dev src/server.ts"
+	},
+	"dependencies": {
+		"@prisma/client": "^4.3.1",
+		"cors": "^2.8.5",
+		"dotenv": "^16.0.2",
+		"express": "^4.18.1",
+		"prisma": "^4.3.1"
+	},
+	"devDependencies": {
+		"@types/cors": "^2.8.12",
+		"@types/express": "^4.17.13",
+		"ts-node-dev": "^2.0.0",
+		"typescript": "^4.8.2"
+	}
+}

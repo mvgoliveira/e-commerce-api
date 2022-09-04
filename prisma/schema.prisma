@@ -1,0 +1,80 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  	provider = "prisma-client-js"
+}
+
+datasource db {
+	provider = "postgresql"
+	url      = env("DATABASE_URL")
+}
+
+model User {
+	id			String		@id		@default(uuid())
+	name 		String
+	cpf 		String		@unique
+	imageUrl	String?
+	email		String		@unique
+	password	String
+	like		Like[]
+	cart		Cart[]
+	purchase	Purchase[]
+	createdAt DateTime @default(now())
+  	updatedAt DateTime @updatedAt
+}
+
+model Product {
+	id				String		@id		@default(uuid())
+	name			String
+	description		String
+	price			Decimal
+	imageUrl		String	
+	like			Like[]
+	cart			Cart[]
+	purchase		Purchase[]
+}
+
+model Like {
+	userId		String
+	user		User		@relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+	
+	productId	String
+	product 	Product		@relation(fields: [productId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+	createdAt DateTime @default(now())
+  	updatedAt DateTime @updatedAt
+
+	@@id([userId, productId])
+}
+
+model Cart {
+	userId		String
+	user		User		@relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+	productId	String
+	product 	Product		@relation(fields: [productId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+	quantity	Int
+
+	createdAt DateTime @default(now())
+  	updatedAt DateTime @updatedAt
+
+	@@id([userId, productId])
+}
+
+model Purchase {
+	userId		String
+	user		User		@relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+	productId	String
+	product 	Product		@relation(fields: [productId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+	quantity	Int
+	totalPrice	Decimal
+
+	createdAt DateTime @default(now())
+  	updatedAt DateTime @updatedAt
+
+	@@id([userId, productId])
+}
