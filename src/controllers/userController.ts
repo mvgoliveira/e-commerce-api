@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { UserService } from "../services/userService";
+import { UserService } from "../services/UserService";
 
 class UserController {
     async findByEmail(req: Request, res: Response) {
@@ -56,4 +56,4 @@ class UserController {
     }
 }
 
-export {UserController};
+export { UserController };
